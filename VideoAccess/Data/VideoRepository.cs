@@ -23,7 +23,7 @@ namespace VideoAccess.Data
                 throw new ArgumentNullException(nameof(video));
 
             video.VideoId = Guid.NewGuid();
-            video.UploadedAt = DateTime.UtcNow;
+            video.CreatedAt = DateTime.UtcNow;
 
             await _context.Videos.AddAsync(video);
             await _context.SaveChangesAsync();
@@ -40,7 +40,7 @@ namespace VideoAccess.Data
         public async Task<List<VideoEntity>> GetAllAsync()
         {
             return await _context.Videos
-                .OrderByDescending(v => v.UploadedAt)
+                .OrderByDescending(v => v.CreatedAt)
                 .ToListAsync();
         }
 
@@ -48,7 +48,7 @@ namespace VideoAccess.Data
         {
             return await _context.Videos
                 .Where(v => v.UserId == userId)
-                .OrderByDescending(v => v.UploadedAt)
+                .OrderByDescending(v => v.CreatedAt)
                 .ToListAsync();
         }
 
@@ -125,7 +125,7 @@ namespace VideoAccess.Data
 
         public async Task<(List<VideoEntity> Videos, int TotalCount)> GetPaginatedAsync(int page, int pageSize)
         {
-            var query = _context.Videos.OrderByDescending(v => v.UploadedAt);
+            var query = _context.Videos.OrderByDescending(v => v.CreatedAt);
 
             var totalCount = await query.CountAsync();
             var videos = await query
