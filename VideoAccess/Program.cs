@@ -30,6 +30,13 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+// --- Миграции базы данных ---
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.Migrate();
+}
+
 // --- Пайплайн ---
 if (app.Environment.IsDevelopment())
 {
