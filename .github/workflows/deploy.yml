@@ -29,5 +29,6 @@ jobs:
           port: ${{ secrets.SERVER_SSH_PORT }}
           script: |
             cd /home/easy/myapp
+            git submodule update --init --recursive
             docker compose down
             docker compose up -d --build
