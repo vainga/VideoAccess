@@ -1,7 +1,7 @@
 name: Deploy
 
 on:
-  workflow_dispatch:  # добавляет кнопку "Run workflow" в GitHub Actions
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -16,6 +16,7 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_SSH_PORT }}
           source: "./"
           target: "/var/www/myapp"
 
@@ -25,6 +26,7 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_SSH_PORT }}
           script: |
             cd /var/www/myapp
             docker compose down
