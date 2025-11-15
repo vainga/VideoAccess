@@ -1,6 +1,5 @@
-name: CI & Deploy
+name: CI
 
-# Позволяет запускать workflow вручную через кнопку "Run workflow"
 on:
   workflow_dispatch:
   push:
@@ -13,8 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout code with submodules
         uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          fetch-depth: 0
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
