@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  videoaccess_api:
+    build:
+      context: .
+      dockerfile: VideoAccess/Dockerfile
+    container_name: videoaccess_api
+    restart: always
+    depends_on:
+      - db
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ConnectionStrings__Default: "Host=db;Port=5432;Database=video_db;Username=video_user;Password=video_pass"
+    ports:
+      - "8080:8080"
+
+  db:
+    image: postgres:16
+    container_name: videoaccess_db
+    restart: always
+    environment:
+      POSTGRES_DB: "video_db"
+      POSTGRES_USER: "video_user"
+      POSTGRES_PASSWORD: "video_pass"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
