@@ -1,6 +1,6 @@
 using VideoAccess.Data;
 using Microsoft.EntityFrameworkCore;
-using VideoAccess.Services; // твой gRPC сервис
+using VideoAccess.Services; // пїЅпїЅпїЅпїЅ gRPC пїЅпїЅпїЅпїЅпїЅпїЅ
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,20 +24,24 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "VideoAccess API",
         Version = "v1",
-        Description = "gRPC + REST API для загрузки и управления видео"
+        Description = "gRPC + REST API пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ"
     });
+});
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(8080); // HTTP РЅР° 8080
 });
 
 var app = builder.Build();
 
-// --- Миграции базы данных ---
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     db.Database.Migrate();
 }
 
-// --- Пайплайн ---
+// --- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ---
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
@@ -45,7 +49,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "VideoAccess API V1");
-        c.RoutePrefix = string.Empty; // Swagger UI открывается по http://localhost:5000/
+        c.RoutePrefix = string.Empty; // Swagger UI пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ http://localhost:5000/
     });
 
     app.MapGrpcReflectionService();
