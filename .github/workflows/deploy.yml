@@ -18,7 +18,7 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_SSH_PORT }}
           source: "./"
-          target: "/var/www/myapp"
+          target: "/home/easy/myapp"
 
       - name: Run deploy script on server
         uses: appleboy/ssh-action@v0.1.10
@@ -28,6 +28,6 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_SSH_PORT }}
           script: |
-            cd /var/www/myapp
+            cd /home/easy/myapp"
             docker compose down
             docker compose up -d --build
