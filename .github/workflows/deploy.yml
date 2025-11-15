@@ -1,9 +1,7 @@
 name: Deploy
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:  # добавляет кнопку "Run workflow" в GitHub Actions
 
 jobs:
   deploy:
