@@ -28,6 +28,6 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_SSH_PORT }}
           script: |
-            cd /home/easy/myapp"
+            cd /home/easy/myapp
             docker compose down
             docker compose up -d --build
