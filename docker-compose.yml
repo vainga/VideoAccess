@@ -11,7 +11,7 @@ services:
       - db
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
-      ConnectionStrings__Default: "Host=db;Port=5432;Database=video_db;Username=video_user;Password=video_pass"
+      ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Database=video_db;Username=video_user;Password=video_pass"
     ports:
       - "8080:8080"
 
